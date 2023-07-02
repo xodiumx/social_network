@@ -7,6 +7,7 @@ from alembic import context
 
 from main.db import metadata, DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT
 from users.models import metadata
+from posts.models import metadata
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

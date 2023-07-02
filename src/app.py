@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from users.router import router as users_router
+from posts.router import router as posts_router
 
 tags_metadata = [
     {
@@ -22,3 +23,4 @@ app = FastAPI(
 
 
 app.include_router(users_router)
+app.include_router(posts_router)
