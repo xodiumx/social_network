@@ -1,7 +1,6 @@
 from typing import Optional
 
-from fastapi_users import schemas, models
-
+from fastapi_users import models, schemas
 from pydantic import EmailStr
 
 

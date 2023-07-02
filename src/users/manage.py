@@ -7,7 +7,6 @@ from main.settings import settings
 
 from .models import User
 
-
 SECRET = settings.user_secret_key
 
 
@@ -23,9 +22,9 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
     async def on_after_forgot_password(
         self, user: User, token: str, request: Optional[Request] = None
     ):
-        print(f'User {user.id} has forgot their password. Reset token: {token}')
+        print(f'User {user.id} has forgot their password. Res token: {token}')
 
     async def on_after_request_verify(
         self, user: User, token: str, request: Optional[Request] = None
     ):
-        print(f'Verification requested for user {user.id}. Verification token: {token}')
+        print(f'Verification requested for user {user.id}. token: {token}')

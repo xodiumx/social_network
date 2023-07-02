@@ -1,8 +1,7 @@
 from fastapi import APIRouter
 
+from .schemas import UserCreate, UserRead
 from .utils import auth_backend, fastapi_users
-from .schemas import UserRead, UserCreate
-
 
 current_user = fastapi_users.current_user()
 

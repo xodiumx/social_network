@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 
-from users.router import router as users_router
+from likes.router import router as likes_router
 from posts.router import router as posts_router
+from users.router import router as users_router
 
 tags_metadata = [
     {
@@ -11,6 +12,10 @@ tags_metadata = [
     {
         'name': 'posts',
         'description': 'Posts endpoints'
+    },
+    {
+        'name': 'likes',
+        'description': 'Likes endpoints'
     },
 ]
 
@@ -24,3 +29,4 @@ app = FastAPI(
 
 app.include_router(users_router)
 app.include_router(posts_router)
+app.include_router(likes_router)

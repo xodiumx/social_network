@@ -1,16 +1,15 @@
 from fastapi import Depends
 from fastapi_users import FastAPIUsers
+from fastapi_users.authentication import (AuthenticationBackend,
+                                          CookieTransport, JWTStrategy)
 from fastapi_users.db import SQLAlchemyUserDatabase
-from fastapi_users.authentication import (
-    AuthenticationBackend, CookieTransport, JWTStrategy, )
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from main.db import get_async_session
 from main.settings import settings
 
-from .models import User
 from .manage import UserManager
-
+from .models import User
 
 SECRET = settings.secret_key
 

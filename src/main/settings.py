@@ -15,7 +15,6 @@ class Settings(BaseSettings):
     db_pass: str
 
 
-
 settings = Settings(
     _env_file='.env',
     _env_file_encoding='utf8',

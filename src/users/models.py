@@ -1,12 +1,8 @@
 from fastapi_users.db import SQLAlchemyBaseUserTable
-
-from sqlalchemy import (
-    Column, Boolean, Integer, MetaData, String, Table,)
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import Boolean, Column, Integer, String, Table
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 from main.db import metadata
-
 
 user = Table(
     'user',
@@ -18,7 +14,7 @@ user = Table(
         'username', String(128), unique=True, nullable=False,),
     Column(
         'hashed_password', String(128), nullable=False,
-        ),
+    ),
     Column(
         'is_active', Boolean, default=True, nullable=False,
     ),

@@ -1,5 +1,4 @@
 from fastapi import Depends, HTTPException, status
-
 from sqlalchemy import delete, insert, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -12,8 +11,8 @@ from .schemas import CreatePostSchema, UpdatePostSchema
 class PostService:
 
     def __init__(
-        self, 
-        session: AsyncSession = Depends(get_async_session)) -> None:
+            self,
+            session: AsyncSession = Depends(get_async_session)) -> None:
         """Creating a new session."""
         self.session = session
     
@@ -34,14 +33,14 @@ class PostService:
         if not post:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail='Запись с таким id не существует'
-                )
+                detail='Post does not exist'
+            )
         return post
 
     async def create_post(
-        self, 
-        user_id: int, 
-        data: CreatePostSchema) -> None:
+            self,
+            user_id: int,
+            data: CreatePostSchema) -> None:
         """
         Create post function
         attributes:
@@ -56,10 +55,10 @@ class PostService:
         return new_post
     
     async def update_post(
-        self,
-        post_id: int,
-        user_id: int,
-        data: UpdatePostSchema):
+            self,
+            post_id: int,
+            user_id: int,
+            data: UpdatePostSchema):
         """
         Update post function
           - Filter the post by author and by id
@@ -74,9 +73,9 @@ class PostService:
         await self.session.commit()
     
     async def delete_post(
-        self,
-        post_id: int,
-        user_id: int) -> None:
+            self,
+            post_id: int,
+            user_id: int) -> None:
         """
         Delete post function
           - Filter the post by author and by id

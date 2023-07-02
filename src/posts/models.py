@@ -1,11 +1,8 @@
 from datetime import datetime
 
-from sqlalchemy import (
-    Column, Integer, ForeignKey, String, Table
-)
+from sqlalchemy import Column, ForeignKey, Integer, String, Table
 
 from main.db import metadata
-
 
 posts = Table(
     'posts',
