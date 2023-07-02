@@ -49,7 +49,7 @@ async def add_dislike(
 
 
 @router.delete('/dislike_remove')
-async def add_dislike(
+async def remove_dislike(
         post_id: int,
         user: User = Depends(current_user),
         service: DisLikeService = Depends()):
