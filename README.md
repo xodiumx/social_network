@@ -4,6 +4,7 @@
 
 # Tasks
 
+- Create a simple RESTful API using FastAPI for a social networking application
 - There should be some form of authentication and registration (JWT, Oauth, Oauth 2.0, etc..)
 - As a user I need to be able to signup and login
 - As a user I need to be able to create, edit, delete and view posts
