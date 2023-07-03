@@ -61,7 +61,7 @@ uvicorn app:app --reload
 ```
 - auth/jwt/login (POST)
 - auth/jwt/logout (POST)
-- auth/jwt/register (POST)
+- auth/register (POST)
 ```
 - The client sends a `POST` request to the endpoint `auth/jwt/register` in the form
 ```
