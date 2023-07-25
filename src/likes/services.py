@@ -18,6 +18,39 @@ class BaseService:
         """Creating a new session."""
         self.session = session
     
+    async def is_own_post(
+            self,
+            post_id: int,
+            user_id: int,
+            action: str) -> bool:
+        query_own_post = (
+            select(posts)
+            .filter_by(author=user_id, id=post_id)
+        )
+        own_post = await self.session.execute(query_own_post)
+        if not own_post.first():
+            return True
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f'{action} cannot be used with your own post')
+
+    async def like_exists(
+            self,
+            post_id: int,
+            user_id: int,
+            table: Table,
+            action: str) -> bool:
+        query_like_exists = (
+            select(table)
+            .filter_by(author=user_id, post=post_id)
+        )
+        like_exists = await self.session.execute(query_like_exists)
+        if not like_exists.first():
+            return True
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f'{action} already used')
+
     async def add(
             self,
             post_id: int,
@@ -32,39 +65,24 @@ class BaseService:
         """
         action = 'Like' if table == likes else 'Dislike'
 
-        query_own_post = (
-            select(posts)
-            .filter_by(author=user_id, id=post_id)
-        )
-        own_post = await self.session.execute(query_own_post)
+        not_own = await self.is_own_post(post_id, user_id, action)
+        not_exists = await self.like_exists(post_id, user_id, table, action)
 
-        if not own_post.first():
-            query_like_exists = (
-                select(table)
-                .filter_by(author=user_id, post=post_id)
+        if all((not_own, not_exists)):
+            query_adding_like = (
+                insert(table)
+                .values(author=user_id, post=post_id)
             )
-            like_exists = await self.session.execute(query_like_exists)
-
-            if not like_exists.first():
-                query_adding_like = (
-                    insert(table)
-                    .values(author=user_id, post=post_id)
+            try:
+                await self.session.execute(query_adding_like)
+                await self.session.commit()
+            except IntegrityError:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail='Post does not exist'
                 )
-                try:
-                    await self.session.execute(query_adding_like)
-                    await self.session.commit()
-                except IntegrityError:
-                    raise HTTPException(
-                        status_code=status.HTTP_404_NOT_FOUND,
-                        detail='Post does not exist'
-                    )
-                return True
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f'{action} already used')
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f'{action} cannot be used with your own post')
+            return True
+        return False
 
     async def delete(
             self,
