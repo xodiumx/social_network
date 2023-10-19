@@ -1,4 +1,4 @@
-# Test assignment for the company *webtronics.ru*
+# Social network on *FastAPI*
 
 ![FastAPI](https://img.shields.io/badge/FastAPI-FFCF40?style=for-the-badge&logo=fastapi&logoColor=white) ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-000000?style=for-the-badge&logo=python&logoColor=white) ![Pydantic](https://img.shields.io/badge/Pydantic-000000?style=for-the-badge&logo=python&logoColor=white) ![Alembic](https://img.shields.io/badge/Alembic-000000?style=for-the-badge&logo=python&logoColor=white) ![Postgres](https://img.shields.io/badge/postgresql-FFCF40?style=for-the-badge&logo=postgresql&logoColor=white)
 
